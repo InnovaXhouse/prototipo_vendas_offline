@@ -27,12 +27,14 @@ function basketReducer(state, action) {
         },
       };
     case 'LOAD_SAVED_STATE':
-      // Assumindo que o estado salvo é apenas o objeto `items`
       return { ...state, items: action.state.items };
+    case 'CLEAR_BASKET':
+      return { ...state, items: {} };
     default:
       return state;
   }
 }
+
 
 export const BasketProvider = ({ children }) => {
   const [state, dispatch] = useReducer(basketReducer, initialState);

@@ -15,7 +15,11 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" style={
+        {
+          marginBottom: '20px'
+        }
+      }>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Catálogo de Joias
