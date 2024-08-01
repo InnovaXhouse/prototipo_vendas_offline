@@ -53,20 +53,22 @@ const BasketModal = ({ open, onClose }) => {
         <>
             <Modal open={open} onClose={onClose}>
                 <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    bgcolor: 'background.paper',
-                    boxShadow: 24,
-                    p: 4,
-                    width: 600,
-                    borderRadius: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    overflow: 'hidden',
-                    maxHeight: '90vh',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      bgcolor: 'background.paper',
+                      boxShadow: 24,
+                      p: 4,
+                      width: '90%', 
+                      maxWidth: '600px', 
+                      borderRadius: 4,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      overflow: 'hidden',
+                      maxHeight: '80vh', 
+                      margin: 'auto', 
                 }}>
                     <Box sx={{ width: '100%', mb: 2 }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
