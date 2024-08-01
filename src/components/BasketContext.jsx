@@ -18,12 +18,37 @@ function basketReducer(state, action) {
         },
       };
     case 'REMOVE_ITEM':
-      if (!state.items[action.id]) return state;
+      const currentQuantity = state.items[action.id];
+      if (currentQuantity > 1) {
+        return {
+          ...state,
+          items: {
+            ...state.items,
+            [action.id]: currentQuantity - 1,
+          },
+        };
+      } else {
+        const newItems = { ...state.items };
+        delete newItems[action.id];
+        return {
+          ...state,
+          items: newItems,
+        };
+      }
+    case 'UPDATE_ITEM_QUANTITY':
+      if (action.quantity <= 0) {
+        const newItems = { ...state.items };
+        delete newItems[action.id];
+        return {
+          ...state,
+          items: newItems,
+        };
+      }
       return {
         ...state,
         items: {
           ...state.items,
-          [action.id]: state.items[action.id] > 0 ? state.items[action.id] - 1 : 0,
+          [action.id]: action.quantity,
         },
       };
     case 'LOAD_SAVED_STATE':
@@ -35,11 +60,9 @@ function basketReducer(state, action) {
   }
 }
 
-
-export const BasketProvider = ({ children }) => {
+export const BasketProvider = ({ children, products }) => {
   const [state, dispatch] = useReducer(basketReducer, initialState);
 
-  // Carregar o estado inicial do IndexedDB
   useEffect(() => {
     localForage.getItem('basket').then(savedState => {
       if (savedState) {
@@ -48,13 +71,12 @@ export const BasketProvider = ({ children }) => {
     });
   }, []);
 
-  // Salvar o estado no IndexedDB sempre que houver mudanças
   useEffect(() => {
     localForage.setItem('basket', state);
   }, [state]);
 
   return (
-    <BasketContext.Provider value={{ state, dispatch }}>
+    <BasketContext.Provider value={{ state, dispatch, products }}>
       {children}
     </BasketContext.Provider>
   );
